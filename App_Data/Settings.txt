@@ -1,3 +1,0 @@
-DataProvider: SqlServer
-DataConnectionString: Data Source=d912c9c1-ed14-4be3-a48b-a3e9006c2e24.sqlserver.sequelizer.com;Initial Catalog=dbd912c9c1ed144be3a48ba3e9006c2e24;User ID=dinzwykzquarrqcv;Password=Hckb4StfCe5KDNKQBgR3UYFmKLXVjzSUXniWKVWxaABXcUz8ksnJ6meRC8yq4E5d
-Name: Default
