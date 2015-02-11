@@ -1,0 +1,21 @@
+﻿<table width="600" align="center" bgcolor="#cdcdcd" cellpadding="10">
+<tr>
+<td align="center"><h2><@StoreName@></h2></td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">
+
+Hello <@FirstName@>,<br/>
+Welcome to <@StoreName@>. You can log on and check orders here: <@StoreURL@>/MyAccount
+<br/><br/>
+Your user name is <@Email@> and your password is <@Password@>
+<br/><br/>
+You can change your password at any time.
+<br/><br/>
+Thank you,<br/>
+<@StoreName@> Sales Team.
+
+
+</td>
+</tr>
+</table>

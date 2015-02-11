@@ -1,0 +1,20 @@
+﻿<table width="600" align="center" bgcolor="#cdcdcd" cellpadding="10">
+<tr>
+<td align="center"><h2><@StoreName@></h2></td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">
+
+	Hello <@FirstName@>,
+	<br/><br/>
+	This email is to confirm a new order has been placed by you.
+	<br/><br/>
+	Your order number is <b><@OrderNumber@></b><br/>
+	You can log on and check your order's status at: <a href="<@StoreURL@>/MyAccount"><@StoreURL@>/MyAccount</a>
+	<br/><br/>
+	Thank you, <br/>
+	<@StoreName@> Sales Team.
+
+</td>
+</tr>
+</table>

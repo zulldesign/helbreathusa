@@ -1,0 +1,186 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="SiteMaster" %>
+<%@ Import Namespace="InvertedSoftware.ShoppingCart.Common" %>
+
+<%@ Register src="UserControls/MenuControl.ascx" tagname="MenuControl" tagprefix="uc1" %>
+
+<%@ Register src="UserControls/CustomPagesControl.ascx" tagname="CustomPagesControl" tagprefix="uc2" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+	<meta charset="utf-8" />
+	<asp:PlaceHolder runat="server">      
+		<%: Scripts.Render("~/bundles/modernizr") %>
+		
+
+	</asp:PlaceHolder>
+	<%--<webopt:BundleReference runat="server" Path="~/Content/css" /> --%>
+	<link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+	<meta name="viewport" content="width=device-width" />
+	<asp:ContentPlaceHolder runat="server" ID="HeadContent" />
+</head>
+<body id="<%: MenuID %>">
+	<form id="form1" runat="server">
+	<asp:ScriptManager runat="server">
+		<Scripts>
+			<%--Framework scripts--%>
+			<asp:ScriptReference Name="MsAjaxBundle" />
+			<asp:ScriptReference Name="jquery" />
+			<asp:ScriptReference Name="jquery.ui.combined" />
+			<asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+			<asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+			<asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+			<asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+			<asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+			<asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+			<asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+			<asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+			<asp:ScriptReference Name="WebFormsBundle" />
+			<%--Site scripts--%>
+
+		</Scripts>
+	</asp:ScriptManager>
+		<div class="bgTopbar">
+			<%: Scripts.Render("~/bundles/SiteMenu") %>
+	<div class="mainBg">
+		
+		<!-- Main Wrapper -->
+		<div class="mainWrapper">
+		
+			<!-- Header -->
+			<div class="topBar clearfix">
+				<div class="siteName"><%= StoreConfiguration.GetConfigurationValue(ConfigurationKey.StoreName) %></div>
+				<div class="siteTr">
+					
+					<div class="loggedIn">
+					<asp:LoginView id="LoginView1" runat="server">
+						<AnonymousTemplate>
+							You are not logged in | <a href="~/Login.aspx" runat="server">Login</a>
+						</AnonymousTemplate>
+						<LoggedInTemplate>
+							Hello
+							<asp:LoginName id="LoginName1" runat="Server"></asp:LoginName> | 
+							<asp:LoginStatus ID="LoginStatus1" runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" />
+						</LoggedInTemplate>
+						<RoleGroups>
+							<asp:RoleGroup Roles="Admin">
+								<ContentTemplate>
+									<asp:LoginName id="LoginName2" runat="Server"></asp:LoginName>, you are an Admin | <a href="~/Admin/" runat="server">Administration Panel</a> | <asp:LoginStatus ID="LoginStatus2" runat="server" LogoutAction="Redirect" LogoutText="Logout" LogoutPageUrl="~/" />
+								</ContentTemplate>
+							</asp:RoleGroup>
+							<asp:RoleGroup Roles="SuperAdmin">
+								<ContentTemplate>
+									<asp:LoginName id="LoginName3" runat="Server"></asp:LoginName>, you are a Super Admin | <a href="~/Admin/" runat="server">Administration Panel</a> | <asp:LoginStatus ID="LoginStatus3" runat="server" LogoutAction="Redirect" LogoutText="Logout" LogoutPageUrl="~/" />
+								</ContentTemplate>
+							</asp:RoleGroup>
+						</RoleGroups>
+
+					</asp:LoginView>
+					</div>
+				
+					<div class="search">
+						<input id="SearchText" type="text" onclick="javascript: this.value = '';" value="Search by keyword..." onfocus="if(this.value==&#39;Search by keyword...&#39;) this.value=&#39;&#39;;" onblur="if(this.value==&#39;&#39;) this.value=&#39;Search by keyword...&#39;;" x-webkit-speech="x-webkit-speech" autocomplete="off" spellcheck="false" type="search" onspeechchange="processspeech();" onwebkitspeechchange="processspeech();" />
+					</div>
+					
+					
+				</div>
+				<div class="clear"></div>
+				
+				<uc1:MenuControl ID="MenuControl1" runat="server" />
+
+				
+			</div><!-- End Header -->
+			
+			<!-- Site Body -->
+			<div class="siteBody">
+				
+				<asp:ContentPlaceHolder runat="server" ID="FeaturedContent" />
+				<asp:ContentPlaceHolder runat="server" ID="MainContent" />
+			</div><!-- End Site Body -->
+	
+		
+		</div><!-- End mainBg -->
+		
+	</div><!-- End Main Wrapper -->
+
+</div><!-- End bgTopBar -->
+
+
+<!-- Footer -->
+<div class="footer">
+	<div class="bottomNav">
+	
+		<div class="bottomNavArea">
+			<div class="navTitle">Site Navigation</div>
+			<a id="A1" href="~/Default.aspx" runat="server">Home</a>
+			<a id="A2" href="~/ShoppingCart.aspx" runat="server">View My Cart</a>
+			<a id="A3" href="~/MyAccount/Default.aspx" runat="server">My Account</a>
+			<a id="A4" href="~/SearchGiftRegistries.aspx" runat="server">Search Gift Registry</a>
+			<a id="A5" href="~/Register.aspx" runat="server">Register</a>
+			<a id="A6" href="~/Login.aspx" runat="server">Login</a>
+			<uc2:CustomPagesControl ID="SiteNavigationCustomPagesControl" MenuType="SiteNavigation" runat="server" />
+		</div>
+		<div class="bottomNavAreaLine"></div>
+		<div class="bottomNavArea">
+			<div class="navTitle">Site Help</div>
+			<a id="A7" href="~/Contact.aspx" runat="server">Contact Us</a>
+			<a id="A8" href="~/ForgotPassword.aspx" runat="server">Forgot Login?</a>
+			<uc2:CustomPagesControl ID="SiteHelpCustomPagesControl" MenuType="SiteHelp" runat="server" />
+		</div>
+		<div class="bottomNavAreaLine"></div>
+		<div class="bottomNavArea">
+			<div class="navTitle">Social Networking</div>
+			<% if (!string.IsNullOrWhiteSpace(StoreConfiguration.GetConfigurationValue(ConfigurationKey.FacebookPage)))
+			   {  %>
+			<a href="<%= StoreConfiguration.GetConfigurationValue(ConfigurationKey.FacebookPage)%>" class="facebook">Follow us on facebook</a>
+			<%} %>
+			<% if (!string.IsNullOrWhiteSpace(StoreConfiguration.GetConfigurationValue(ConfigurationKey.TwitterPage)))
+			   {  %>
+			<a href="<%=StoreConfiguration.GetConfigurationValue(ConfigurationKey.TwitterPage) %>" class="twitter">Follow us on twitter</a>
+			<%} %>
+			<% if (!string.IsNullOrWhiteSpace(StoreConfiguration.GetConfigurationValue(ConfigurationKey.YouTubeChannel)))
+			   {  %>
+			<a href="<%=StoreConfiguration.GetConfigurationValue(ConfigurationKey.YouTubeChannel) %>" class="youtube">Watch Us on youtube</a>
+			<%} %>
+			<% if (!string.IsNullOrWhiteSpace(StoreConfiguration.GetConfigurationValue(ConfigurationKey.LinkedInPage)))
+			   {  %>
+			<a href="<%=StoreConfiguration.GetConfigurationValue(ConfigurationKey.LinkedInPage) %>" class="linkedin">Follow us on LinkedIn</a>
+			<%} %>
+			<uc2:CustomPagesControl ID="SocialNetworkingSiteHelpCustomPagesControl" MenuType="SocialNetworking" runat="server" />
+		</div>
+		
+	</div>
+</div>
+</form>
+
+<% if (!string.IsNullOrWhiteSpace(StoreConfiguration.GetConfigurationValue(ConfigurationKey.GoogleAnalytics)))
+		{  %>
+		<script type="text/javascript">
+			var _gaq = _gaq || []; _gaq.push(['_setAccount', '<%= StoreConfiguration.GetConfigurationValue(ConfigurationKey.GoogleAnalytics) %>']);
+			_gaq.push(['_trackPageview']);
+			(function () {
+				var ga = document.createElement('script');
+				ga.type = 'text/javascript';
+				ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			})();
+		</script>
+	<%} %>
+	<%: Styles.Render("~/Content/themes/base/css") %>
+	<div id="dialog-modal" title="Hello Shopper">
+		<div id="messageDiv"></div>
+	</div>
+	<script>
+		$("#SearchText").keypress(function (event) {
+			if (event.which == 13) {
+				event.preventDefault();
+				document.location.href = '<%: ResolveClientUrl("~/Search.aspx") %>?Keyword=' + encodeURIComponent($('#SearchText').val());
+			}
+		});
+
+	    function processspeech() {
+	        $("#SearchText").val($("#SearchText").val().replace("Search by keyword...", ""));
+	    }
+	           
+	</script>
